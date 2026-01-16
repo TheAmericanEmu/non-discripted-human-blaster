@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccdqux4crjyut"]
+[gd_scene load_steps=12 format=3 uid="uid://ccdqux4crjyut"]
 
 [ext_resource type="Script" uid="uid://c5j7hfgop638" path="res://src/camera_3d.gd" id="1_uwrxv"]
 [ext_resource type="MeshLibrary" uid="uid://vj7yfxa0hv2s" path="res://res/storage_lib.tres" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b8jhbkvnlbq0b" path="res://src/path_3d_gen.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://xbbrmx27jc1r" path="res://src/human.gd" id="4_lbhrr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uwrxv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -25,6 +26,8 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
 vertex_color_use_as_albedo = true
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lnu2h"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -56,40 +59,29 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_uwrxv")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8951912, 0.44568238, 0, -0.44568238, 0.8951912, 0, 11.574848, 23.75029)
+transform = Transform3D(-4.371139e-08, 0.44568238, -0.8951912, 0, 0.8951912, 0.44568238, 1, 1.9481396e-08, -3.913005e-08, -49.119125, 39.383896, 111.18628)
 script = ExtResource("1_uwrxv")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.01
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = false
+path_u_distance = 0.0
+path_joined = false
+material = SubResource("StandardMaterial3D_lnu2h")
 
 [node name="Path3D" type="Path3D" parent="."]
 script = ExtResource("3_lnu2h")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-polygon = PackedVector2Array(0, 0, 0, 1, 0.69512355, 0.85445964, 1, 0)
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 1
-path_interval = 12.15
-path_simplify_angle = 0.0
-path_rotation = 1
-path_rotation_accurate = false
-path_local = false
-path_continuous_u = true
-path_u_distance = 0.0
-path_joined = false
-material = SubResource("StandardMaterial3D_lnu2h")
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+script = ExtResource("4_lbhrr")
 
-[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Path3D"]
-transform = Transform3D(-5.829, 0, 0, 0, 1, -8.742278e-08, 0, 8.742278e-08, 1, 0, 0, 0)
-polygon = PackedVector2Array(0, 0, 0, 1, 0.6831678, 0.7835018, 1, 0)
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 1
-path_interval = 12.15
-path_simplify_angle = 0.0
-path_rotation = 1
-path_rotation_accurate = false
-path_local = false
-path_continuous_u = true
-path_u_distance = 0.0
-path_joined = false
-material = SubResource("StandardMaterial3D_lnu2h")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+mesh = SubResource("CapsuleMesh_lnu2h")
