@@ -1,31 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpulkw0ij5jca"]
+[gd_scene load_steps=6 format=3 uid="uid://cpulkw0ij5jca"]
 
-[ext_resource type="Script" uid="uid://b70vlpk3tnvlj" path="res://src/turret_base.gd" id="1_qh68k"]
+[ext_resource type="NavigationMesh" uid="uid://de5beqj622phk" path="res://res/tile_mav_mesh.tres" id="1_qh68k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2ivj"]
-albedo_color = Color(0.3403393, 0.34033933, 0.3403393, 1)
+albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_qh68k"]
+[sub_resource type="BoxMesh" id="BoxMesh_nyt6y"]
 material = SubResource("StandardMaterial3D_t2ivj")
 size = Vector3(4, 4, 0.1)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qh68k"]
-data = PackedVector3Array(-2, 2, 0.049999997, 2, 2, 0.049999997, -2, -2, 0.049999997, 2, 2, 0.049999997, 2, -2, 0.049999997, -2, -2, 0.049999997, 2, 2, -0.049999997, -2, 2, -0.049999997, 2, -2, -0.049999997, -2, 2, -0.049999997, -2, -2, -0.049999997, 2, -2, -0.049999997, 2, 2, 0.049999997, 2, 2, -0.049999997, 2, -2, 0.049999997, 2, 2, -0.049999997, 2, -2, -0.049999997, 2, -2, 0.049999997, -2, 2, -0.049999997, -2, 2, 0.049999997, -2, -2, -0.049999997, -2, 2, 0.049999997, -2, -2, 0.049999997, -2, -2, -0.049999997, 2, 2, 0.049999997, -2, 2, 0.049999997, 2, 2, -0.049999997, -2, 2, 0.049999997, -2, 2, -0.049999997, 2, 2, -0.049999997, -2, -2, 0.049999997, 2, -2, 0.049999997, -2, -2, -0.049999997, 2, -2, 0.049999997, 2, -2, -0.049999997, -2, -2, -0.049999997)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frua4"]
+albedo_color = Color(0.45621872, 0.37342307, 0.20685884, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qh68k"]
+material = SubResource("StandardMaterial3D_frua4")
+size = Vector3(4, 4, 0.1)
 
 [node name="storage_world" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 3
-script = ExtResource("1_qh68k")
+[node name="Tower_Point" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 6.001487, 0, 0)
+mesh = SubResource("BoxMesh_nyt6y")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="Walkable" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_qh68k")
-skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_qh68k")
-
-[connection signal="input_event" from="StaticBody3D" to="StaticBody3D" method="_on_input_event"]
-[connection signal="mouse_entered" from="StaticBody3D" to="StaticBody3D" method="_on_mouse_entered"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Walkable"]
+navigation_mesh = ExtResource("1_qh68k")

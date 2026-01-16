@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccdqux4crjyut"]
+[gd_scene load_steps=10 format=3 uid="uid://ccdqux4crjyut"]
 
 [ext_resource type="Script" uid="uid://c5j7hfgop638" path="res://src/camera_3d.gd" id="1_uwrxv"]
 [ext_resource type="MeshLibrary" uid="uid://vj7yfxa0hv2s" path="res://res/storage_lib.tres" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://b8jhbkvnlbq0b" path="res://src/path_3d_gen.gd" id="3_lnu2h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uwrxv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,6 +22,10 @@ glow_enabled = true
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uwrxv"]
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -35,7 +40,7 @@ mesh_library = ExtResource("1_yqjtg")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65534, 5, 262144, 65533, 5, 262144, 65532, 5, 262144, 65532, 4, 262144, 65532, 3, 262144, 65533, 3, 262144, 65534, 4, 262144, 65533, 4, 262144, 65534, 3, 262144)
+"cells": PackedInt32Array(65528, 65534, 786433, 65527, 65534, 786433, 65526, 65534, 786433, 65525, 65534, 786433, 65524, 65534, 786433, 65523, 65533, 786433, 65522, 65533, 786433, 65521, 65533, 786433, 65520, 65533, 786433, 65519, 65533, 786433, 65518, 65533, 786433, 65517, 65533, 786433, 65517, 65534, 786433, 65516, 65534, 786433, 65520, 65534, 786433, 65521, 65534, 786433, 65522, 65534, 786433, 65523, 65534, 786433, 65521, 65535, 786433, 65520, 65535, 786433, 65519, 65534, 786433, 65518, 65534, 786433, 65517, 65535, 786433, 65518, 65535, 786433, 65519, 65535, 786433, 65522, 65535, 786433, 65523, 65535, 786433, 65524, 65535, 786433, 65524, 65533, 786433, 65525, 65533, 786433, 65526, 65533, 786433, 65527, 65533, 786433, 65528, 65533, 786433, 65528, 65535, 786433, 65527, 65535, 786433, 65526, 65535, 786433, 65525, 65535, 786433, 65516, 65535, 786433, 65516, 65533, 786433)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
@@ -51,5 +56,40 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_uwrxv")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 53.423203, 112.679855)
+transform = Transform3D(1, 0, 0, 0, 0.8951912, 0.44568238, 0, -0.44568238, 0.8951912, 0, 11.574848, 23.75029)
 script = ExtResource("1_uwrxv")
+
+[node name="Path3D" type="Path3D" parent="."]
+script = ExtResource("3_lnu2h")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+polygon = PackedVector2Array(0, 0, 0, 1, 0.69512355, 0.85445964, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 1
+path_interval = 12.15
+path_simplify_angle = 0.0
+path_rotation = 1
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 0.0
+path_joined = false
+material = SubResource("StandardMaterial3D_lnu2h")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Path3D"]
+transform = Transform3D(-5.829, 0, 0, 0, 1, -8.742278e-08, 0, 8.742278e-08, 1, 0, 0, 0)
+polygon = PackedVector2Array(0, 0, 0, 1, 0.6831678, 0.7835018, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 1
+path_interval = 12.15
+path_simplify_angle = 0.0
+path_rotation = 1
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 0.0
+path_joined = false
+material = SubResource("StandardMaterial3D_lnu2h")
