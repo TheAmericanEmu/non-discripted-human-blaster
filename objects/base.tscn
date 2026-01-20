@@ -20,3 +20,9 @@ script = ExtResource("1_gbl3y")
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("ArrayMesh_tyfvg")
 skeleton = NodePath("../..")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.363898, 0)
+pixel_size = 0.0765
+billboard = 1
+text = "your mom"

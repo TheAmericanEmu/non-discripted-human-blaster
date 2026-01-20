@@ -16,8 +16,8 @@ func _ready() -> void:
 	new_curve.closed=false
 	for i in range(90):
 		var y = noise.get_noise_1d(i)
-		var z = noise.get_noise_1d(y)
-		var point = Vector3((y*-20),0,i*2)
+
+		var point = Vector3((y*-60),0,i*2)
 		new_curve.add_point(point)
 		var grid_point = grid_map.local_to_map(point)
 		print(grid_point)
