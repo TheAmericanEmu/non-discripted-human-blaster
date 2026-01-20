@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqnvijg310h7o"]
+
+[ext_resource type="Script" uid="uid://xbbrmx27jc1r" path="res://src/human.gd" id="1_882u1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lnu2h"]
+
+[node name="PathFollow3D" type="PathFollow3D"]
+use_model_front = true
+loop = false
+script = ExtResource("1_882u1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3095164, -0.1413356)
+mesh = SubResource("CapsuleMesh_lnu2h")
