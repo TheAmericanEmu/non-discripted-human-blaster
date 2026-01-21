@@ -10,6 +10,6 @@ func _process(delta: float) -> void:
 
 	progress+=speed*delta
 	if progress_ratio==1:
-		base_OBJ.take_damge(10)
+		base_OBJ.health-=10
 		self.queue_free()
 	

@@ -22,19 +22,26 @@ func _ready() -> void:
 		var grid_point = grid_map.local_to_map(point)
 		print(grid_point)
 		grid_point.x+=3
-		grid_map.set_cell_item(grid_point,1,6)
+		grid_map.set_cell_item(grid_point,0,6)
 		grid_point.x-=6
-		grid_map.set_cell_item(grid_point,1,6)
+		grid_map.set_cell_item(grid_point,0,6)
 	new_curve.sample_baked()
 	var tower:base = BASE.instantiate()
 	
 	
 	print(new_curve.point_count)
 	
+	var last_ponit:=new_curve.get_point_position(new_curve.point_count-1)
+	var last_point_out :=new_curve.get_point_out(new_curve.point_count-1)
 	get_tree().current_scene.add_child.call_deferred(tower)
-	tower.global_position=new_curve.get_point_position(new_curve.point_count-1)
+	
+	tower.global_position=last_ponit
 	tower.position.y+=5
-	print(tower.position)
+	
+	var flat_point: = tower.position
+	flat_point.y=0
+	print(flat_point.angle_to(last_point_out))
+	
 	self.curve=new_curve
 	for i in range(5):
 		await get_tree().create_timer(1).timeout
