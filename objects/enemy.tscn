@@ -4,7 +4,7 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lnu2h"]
 
-[node name="PathFollow3D" type="PathFollow3D"]
+[node name="PathFollow3D" type="PathFollow3D" groups=["enemy"]]
 use_model_front = true
 loop = false
 script = ExtResource("1_882u1")

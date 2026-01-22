@@ -3,6 +3,7 @@ extends Camera3D
 
 @export var grid_map: GridMap
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var turrent_manger_obj: turrent_manger = $"../Turrent_Manger"
 
 func find_click_pos():
 	Input.set_default_cursor_shape(Input.CursorShape.CURSOR_ARROW)
@@ -24,6 +25,7 @@ func find_click_pos():
 	var target = self.project_local_ray_normal(mousepos)
 	ray_cast_3d.target_position=target*100
 	ray_cast_3d.force_raycast_update()
+
 	if ray_cast_3d.get_collider()==grid_map:
 		var pos = ray_cast_3d.get_collision_point()
 		var grid_point = grid_map.local_to_map(pos)
@@ -31,8 +33,8 @@ func find_click_pos():
 		if grid_map.get_cell_item(grid_point)==0:
 			Input.set_default_cursor_shape(Input.CursorShape.CURSOR_POINTING_HAND)
 			if Input.is_action_just_pressed("place"):
-
-				grid_map.set_cell_item(grid_point,1)
+				turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point))
+				grid_map.set_cell_item(grid_point,-1)
 func _ready() -> void:
 	pass
 	
