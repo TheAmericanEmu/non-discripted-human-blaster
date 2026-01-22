@@ -1,6 +1,6 @@
 extends Path3D
 #@onready var csg_polygon_3d: CSGPolygon3D = $CSGPolygon3D
-@onready var path_follow_3d: PathFollow3D = $PathFollow3D
+
 const BASE = preload("uid://bgt7yjova1cs0")
 @onready var grid_map: GridMap = $"../GridMap"
 const ENEMY = preload("uid://bqnvijg310h7o")
@@ -50,3 +50,7 @@ func _ready() -> void:
 func _add_enemy():
 	var new_bad_guy = ENEMY.instantiate()
 	self.add_child(new_bad_guy)
+
+func _process(delta: float) -> void:
+	if get_tree().get_node_count_in_group("enemy")<5:
+		_add_enemy()

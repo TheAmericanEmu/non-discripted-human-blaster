@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://7ee06lpcfywn"]
+[gd_scene load_steps=6 format=4 uid="uid://7ee06lpcfywn"]
 
 [ext_resource type="Script" uid="uid://lp7bhb26t8wf" path="res://src/tower.gd" id="1_dhgxi"]
+[ext_resource type="PackedScene" uid="uid://pd708r8qg5fs" path="res://objects/bullet.tscn" id="2_3kbum"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_t2ivj"]
 lightmap_size_hint = Vector2i(114, 118)
@@ -43,12 +44,17 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0
 mesh = SubResource("ArrayMesh_t2ivj")
 skeleton = NodePath("")
 script = ExtResource("1_dhgxi")
+bullet = ExtResource("2_3kbum")
 
-[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.49685657, 0, 0, 0, 0.5761205, -1.7763568e-15, 0, -3.5527137e-15, 0.39969364, 0, 0.91966283, -0.024373263)
+[node name="Turret" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.49685657, 0, 0, 0, 0.5761205, -1.7763568e-15, 0, -3.5527137e-15, 0.39969364, 0, 0.81570256, -0.024373263)
 mesh = SubResource("ArrayMesh_sf0al")
 
-[node name="CSGBakedMeshInstance3D2" type="MeshInstance3D" parent="CSGBakedMeshInstance3D"]
+[node name="CSGBakedMeshInstance3D2" type="MeshInstance3D" parent="Turret"]
 transform = Transform3D(1.0000001, 0, 0, 0, -4.371141e-08, 0.69376767, 0, -1.4414058, -4.371139e-08, 0, 0.5006372, -0.9599948)
 mesh = SubResource("ArrayMesh_dhgxi")
 skeleton = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
