@@ -3,29 +3,28 @@ extends MeshInstance3D
 @export var bullet:PackedScene
 @onready var timer: Timer = $Timer
 @onready var csg_baked_mesh_instance_3d_2: MeshInstance3D = $Turret/CSGBakedMeshInstance3D2
-
+@export var range:int = 20
 var can_shoot= false
+var target:Node3D=null
+
+
 
 func _ready() -> void:
 	timer.timeout.connect(func():
 		can_shoot=true
 	)
 
-func _process(delta: float) -> void:
+func _find_best_target()->enemy:
 	var enemeys = get_tree().get_nodes_in_group("enemy")
+	var closets:Node3D=enemeys[0]
+	for enemey:Node3D in enemeys:
+		if enemey.position.distance_to(self.position) < closets.position.distance_to(self.position):
+			closets=enemey
+	return closets
 
-	var target:Node3D=null
-	if enemeys !=null and target==null:
-		var closets:Node3D=enemeys[0]
-		for enemey:Node3D in enemeys:
-				if enemey.position.distance_to(self.position) < closets.position.distance_to(self.position):
-					closets=enemey
-		target=closets
-		
-		
-				
+func _physics_process(delta: float) -> void:
 	if target!=null:
-		if target.position.distance_to(self.position)<20:
+		if target.position.distance_to(self.position)<range:
 			turret.look_at(target.position)
 			if can_shoot==true:
 				var bullet_obj:Node3D = bullet.instantiate()
@@ -36,4 +35,6 @@ func _process(delta: float) -> void:
 
 		else:
 			target=null
-			turret.rotation=Vector3(0,0,0)
+			
+	else:
+		target=_find_best_target()

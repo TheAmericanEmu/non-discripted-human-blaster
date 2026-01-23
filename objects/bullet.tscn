@@ -12,6 +12,7 @@ points = PackedVector3Array(-0.49943367, -0.023884177, 0, -0.49708706, -0.023884
 
 [node name="bullet" type="Area3D"]
 top_level = true
+collision_mask = 2
 script = ExtResource("1_1hbe6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -19,10 +20,12 @@ mesh = SubResource("SphereMesh_f1esg")
 surface_material_override/0 = SubResource("StandardMaterial3D_1hbe6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_3ndsa")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 6.0
 autostart = true
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

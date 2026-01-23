@@ -1,5 +1,6 @@
 extends Path3D
 #@onready var csg_polygon_3d: CSGPolygon3D = $CSGPolygon3D
+@onready var camera_3d: Camera3D = $"../Camera3D"
 
 const BASE = preload("uid://bgt7yjova1cs0")
 @onready var grid_map: GridMap = $"../GridMap"
@@ -14,10 +15,10 @@ func _ready() -> void:
 	noise.seed=randi_range(0,10000000)
 	var new_curve = Curve3D.new()
 	new_curve.closed=false
-	for i in range(90):
+	for i in range(30):
 		var y = noise.get_noise_1d(i)
 
-		var point = Vector3((y*-60),0,i*2)
+		var point = Vector3((y*-60),0,i*5)
 		new_curve.add_point(point)
 		var grid_point = grid_map.local_to_map(point)
 		print(grid_point)
@@ -28,7 +29,7 @@ func _ready() -> void:
 	new_curve.sample_baked()
 	var tower:base = BASE.instantiate()
 	
-	
+
 	print(new_curve.point_count)
 	
 	var last_ponit:=new_curve.get_point_position(new_curve.point_count-1)
@@ -37,6 +38,11 @@ func _ready() -> void:
 	
 	tower.global_position=last_ponit
 	tower.position.y+=5
+
+	
+	var mid_point = new_curve.get_point_position(new_curve.point_count/2)
+	camera_3d.position.x=mid_point.x-50
+	camera_3d.position.z=mid_point.z+50
 	
 	var flat_point: = tower.position
 	flat_point.y=0

@@ -1,13 +1,20 @@
-extends PathFollow3D
+class_name enemy extends PathFollow3D
 
 
-@export var speed = 10
+@export var speed = 20
 
+@export var max_health :=50
+@onready var health:=max_health:
+	set(new_health):
+		health=new_health
+		print(health)
+		if health<=1:
+			self.queue_free()
 
 
 func _process(delta: float) -> void:
 	var base_OBJ :base= get_tree().get_first_node_in_group("base")
-
+	
 	progress+=speed*delta
 	if progress_ratio==1:
 		base_OBJ.health-=10
