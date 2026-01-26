@@ -49,6 +49,8 @@ grid_map = NodePath("../GridMap")
 [node name="Path3D" type="Path3D" parent="."]
 script = ExtResource("3_lnu2h")
 
+[node name="Timer" type="Timer" parent="Path3D"]
+
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 polygon = PackedVector2Array(-2.458229, 1.161445, 4.093439, 1.2232126, 4.167686, -0.110842705, -2.5909061, -0.019022107)
 mode = 2

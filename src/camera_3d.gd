@@ -33,7 +33,12 @@ func find_click_pos():
 		if grid_map.get_cell_item(grid_point)==0:
 			Input.set_default_cursor_shape(Input.CursorShape.CURSOR_POINTING_HAND)
 			if Input.is_action_just_pressed("place"):
-				turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point))
+				turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point),Vector3(0,180,0))
+				grid_map.set_cell_item(grid_point,-1)
+		if grid_map.get_cell_item(grid_point)==1:
+			Input.set_default_cursor_shape(Input.CursorShape.CURSOR_POINTING_HAND)
+			if Input.is_action_just_pressed("place"):
+				turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point),Vector3(0,-180,0))
 				grid_map.set_cell_item(grid_point,-1)
 func _ready() -> void:
 	pass

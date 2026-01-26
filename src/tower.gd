@@ -6,6 +6,7 @@ extends MeshInstance3D
 @export var range:int = 20
 var can_shoot= false
 var target:Node3D=null
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 
@@ -26,14 +27,15 @@ func _physics_process(delta: float) -> void:
 	if target!=null:
 		if target.position.distance_to(self.position)<range:
 			turret.look_at(target.position)
-			if can_shoot==true:
+			if target!=null and can_shoot:
 				var bullet_obj:Node3D = bullet.instantiate()
 				add_child(bullet_obj)
+				animation_player.play("recoil")
 				bullet_obj.global_position=csg_baked_mesh_instance_3d_2.global_position
 				bullet_obj.dir=-turret.global_basis.z
 				can_shoot=false
-
 		else:
+
 			target=null
 			
 	else:

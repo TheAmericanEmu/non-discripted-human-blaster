@@ -5,12 +5,20 @@ extends Path3D
 const BASE = preload("uid://bgt7yjova1cs0")
 @onready var grid_map: GridMap = $"../GridMap"
 const ENEMY = preload("uid://bqnvijg310h7o")
+@onready var timer: Timer = $Timer
 
-
+var total_num_emenies=1000
 
 
 func _ready() -> void:
 	randomize()
+	
+	timer.timeout.connect(func():
+		if get_tree().get_node_count_in_group("enemy")<total_num_emenies:
+			_add_enemy()
+		)
+	
+	
 	var noise = FastNoiseLite.new()
 	noise.seed=randi_range(0,10000000)
 	var new_curve = Curve3D.new()
@@ -25,7 +33,7 @@ func _ready() -> void:
 		grid_point.x+=3
 		grid_map.set_cell_item(grid_point,0,6)
 		grid_point.x-=6
-		grid_map.set_cell_item(grid_point,0,6)
+		grid_map.set_cell_item(grid_point,1,6)
 	new_curve.sample_baked()
 	var tower:base = BASE.instantiate()
 	
@@ -49,14 +57,9 @@ func _ready() -> void:
 	print(flat_point.angle_to(last_point_out))
 	
 	self.curve=new_curve
-	for i in range(5):
-		await get_tree().create_timer(1).timeout
-		_add_enemy()
+	
+	timer.start()
 
 func _add_enemy():
 	var new_bad_guy = ENEMY.instantiate()
 	self.add_child(new_bad_guy)
-
-func _process(delta: float) -> void:
-	if get_tree().get_node_count_in_group("enemy")<5:
-		_add_enemy()

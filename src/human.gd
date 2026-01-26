@@ -1,13 +1,17 @@
 class_name enemy extends PathFollow3D
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var speed = 20
 
 @export var max_health :=50
 @onready var health:=max_health:
 	set(new_health):
-		health=new_health
+
 		print(health)
+		if health>new_health:
+			animation_player.play("hit")
+		health=new_health
 		if health<=1:
 			self.queue_free()
 
