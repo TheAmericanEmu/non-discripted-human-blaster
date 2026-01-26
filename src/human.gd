@@ -5,6 +5,9 @@ class_name enemy extends PathFollow3D
 @export var speed = 20
 
 @export var max_health :=50
+
+signal death
+
 @onready var health:=max_health:
 	set(new_health):
 
@@ -13,7 +16,9 @@ class_name enemy extends PathFollow3D
 			animation_player.play("hit")
 		health=new_health
 		if health<=1:
+			death.emit()
 			self.queue_free()
+
 
 
 func _process(delta: float) -> void:

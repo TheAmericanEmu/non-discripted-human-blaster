@@ -17,12 +17,14 @@ func _ready() -> void:
 
 func _find_best_target()->enemy:
 	var enemeys = get_tree().get_nodes_in_group("enemy")
-	var closets:Node3D=enemeys[0]
-	for enemey:Node3D in enemeys:
-		if enemey.position.distance_to(self.position) < closets.position.distance_to(self.position):
-			closets=enemey
-	return closets
-
+	if enemeys != []:
+		var closets:Node3D=enemeys[0]
+		for enemey:Node3D in enemeys:
+			if enemey.position.distance_to(self.position) < closets.position.distance_to(self.position):
+				closets=enemey
+		return closets
+	else:
+		return null
 func _physics_process(delta: float) -> void:
 	if target!=null:
 		if target.position.distance_to(self.position)<range:

@@ -6,9 +6,9 @@ const BASE = preload("uid://bgt7yjova1cs0")
 @onready var grid_map: GridMap = $"../GridMap"
 const ENEMY = preload("uid://bqnvijg310h7o")
 @onready var timer: Timer = $Timer
-
+@export var bank_obj:bank
 var total_num_emenies=1000
-
+@export var money_per_kill := 50
 
 func _ready() -> void:
 	randomize()
@@ -61,5 +61,8 @@ func _ready() -> void:
 	timer.start()
 
 func _add_enemy():
-	var new_bad_guy = ENEMY.instantiate()
+	var new_bad_guy:enemy = ENEMY.instantiate()
 	self.add_child(new_bad_guy)
+	new_bad_guy.death.connect(func():
+		bank_obj.money+=money_per_kill
+	)
