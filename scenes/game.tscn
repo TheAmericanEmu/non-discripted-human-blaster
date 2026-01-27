@@ -39,17 +39,12 @@ environment = SubResource("Environment_lnu2h")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("1_yqjtg")
-cell_size = Vector3(4, 4, 4)
-cell_center_y = false
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("grid_map", "bank_obj")]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("grid_map")]
 transform = Transform3D(-4.371139e-08, 0.44568238, -0.8951912, 0, 0.8951912, 0.44568238, 1, 1.9481396e-08, -3.913005e-08, -49.119125, 39.383896, 111.18628)
 script = ExtResource("1_uwrxv")
 grid_map = NodePath("../GridMap")
-bank_obj = NodePath("../MarginContainer")
+cost_per_tower = 100
+difficulty = "esay"
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 
@@ -82,7 +77,7 @@ mesh = SubResource("PlaneMesh_lbhrr")
 script = ExtResource("4_lbhrr")
 turret = ExtResource("5_iywne")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." groups=["bank"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -98,3 +93,10 @@ size_flags_vertical = 8
 text = "Gold: 150"
 label_settings = SubResource("LabelSettings_iywne")
 vertical_alignment = 2
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1, -1.4901161e-08, -1.4901161e-08, -1.4901161e-08, 1, -2.9802322e-08, -1.4901161e-08, 0, 1, 0, 0, 0)
+mesh_library = ExtResource("1_yqjtg")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+metadata/_editor_floor_ = Vector3(0, 0, 0)

@@ -2,7 +2,7 @@ extends Area3D
 
 var dir = Vector3.MODEL_RIGHT
 
-var damage =10
+var damage =30
 
 func _physics_process(delta: float) -> void:
 	self.position+=dir*200*delta

@@ -4,8 +4,12 @@ extends Camera3D
 @export var grid_map: GridMap
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var turrent_manger_obj: turrent_manger = $"../Turrent_Manger"
-@export var bank_obj:bank
+@onready var bank_obj:bank = get_tree().get_first_node_in_group("bank")
 @export var cost_per_tower = 150
+@export_enum("esay","med","hard") var difficulty:String = "med"
+var tower_dict = {"esay":50,"med":100,"hard":150}
+var tower_cost :int
+
 
 
 func find_click_pos():
@@ -29,24 +33,25 @@ func find_click_pos():
 	ray_cast_3d.target_position=target*100
 	ray_cast_3d.force_raycast_update()
 
-	if ray_cast_3d.get_collider()==grid_map:
+	if ray_cast_3d.get_collider()==grid_map and bank_obj.money>=tower_cost:
 		var pos = ray_cast_3d.get_collision_point()
 		var grid_point = grid_map.local_to_map(pos)
 		if grid_map.get_cell_item(grid_point)==0:
 			Input.set_default_cursor_shape(Input.CursorShape.CURSOR_POINTING_HAND)
 			if Input.is_action_just_pressed("place"):
-				if bank_obj.money>=cost_per_tower:
-					bank_obj.money-=cost_per_tower
+				if bank_obj.money>=tower_cost:
+					bank_obj.money-=tower_cost
 					turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point),Vector3(0,180,0))
 					grid_map.set_cell_item(grid_point,-1)
 		if grid_map.get_cell_item(grid_point)==1:
 			Input.set_default_cursor_shape(Input.CursorShape.CURSOR_POINTING_HAND)
 			if Input.is_action_just_pressed("place"):
-				if bank_obj.money>=cost_per_tower:
-					bank_obj.money-=cost_per_tower
+				if bank_obj.money>=tower_cost:
+					bank_obj.money-=tower_cost
 					turrent_manger_obj._build_turret(grid_map.map_to_local(grid_point),Vector3(0,-180,0))
 					grid_map.set_cell_item(grid_point,-1)
 func _ready() -> void:
+	tower_cost=tower_dict[difficulty]
 	pass
 	
 func _process(delta: float) -> void:
