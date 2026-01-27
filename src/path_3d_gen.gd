@@ -10,6 +10,8 @@ const ENEMY = preload("uid://bqnvijg310h7o")
 var total_num_emenies=1000
 @export var money_per_kill := 50
 
+@export var diff_manger_obj:diff_manger
+
 func _ready() -> void:
 	randomize()
 	
@@ -57,12 +59,14 @@ func _ready() -> void:
 	print(flat_point.angle_to(last_point_out))
 	
 	self.curve=new_curve
-	
 	timer.start()
 
 func _add_enemy():
+	timer.wait_time=diff_manger_obj.get_spawn_time()
 	var new_bad_guy:enemy = ENEMY.instantiate()
+	new_bad_guy.max_health=diff_manger_obj.get_heal_time()
 	self.add_child(new_bad_guy)
 	new_bad_guy.death.connect(func():
 		bank_obj.money+=money_per_kill
 	)
+	
