@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bw4rfcqrabocq"]
+
+[ext_resource type="Script" uid="uid://b8u3opes6a7ft" path="res://src/win_screen.gd" id="1_ah516"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7t3xl"]
+font_size = 32
+
+[node name="Node3D" type="CanvasLayer" unique_id=1375763698]
+script = ExtResource("1_ah516")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1919160261]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.15686275)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=49012156]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = -66.5
+offset_right = 97.0
+offset_bottom = 66.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=298411961]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel" unique_id=417569122]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=456592732]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "You Win"
+label_settings = SubResource("LabelSettings_7t3xl")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer" unique_id=688994070]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer" unique_id=682449236]
+layout_mode = 2
+text = "Play gain"
+
+[node name="Button2" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer" unique_id=836538409]
+layout_mode = 2
+text = "Quit"

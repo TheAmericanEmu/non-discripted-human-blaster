@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cm2athbcm2ljc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jnyxw"]
+lightmap_size_hint = Vector2i(14, 21)
+add_uv2 = true
+subdivide_height = 20
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jnyxw"]
+size = Vector3(4.084961, 4.3896484, 4.765381)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yb0nf"]
+
+[node name="fLAG" type="Node3D" unique_id=554044962]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=813088053]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+wind_force_magnitude = 3.0
+wind_source_path = NodePath(".")
+
+[node name="SoftBody3D" type="SoftBody3D" parent="Area3D" unique_id=1181538681]
+transform = Transform3D(4.3711395e-08, 2.542401, -2.4347582e-09, 4.371137e-08, -2.2226376e-07, -0.027850384, -1, 1.1113188e-07, -1.2173789e-09, -0.7194647, 0.45714697, 0)
+mesh = SubResource("BoxMesh_jnyxw")
+skeleton = NodePath("../..")
+total_mass = 0.2
+linear_stiffness = 0.2
+pinned_points = [6, 2, 3, 0]
+attachments/0/point_index = 6
+attachments/0/spatial_attachment_path = NodePath("")
+attachments/0/offset = Vector3(0, 0, 0)
+attachments/1/point_index = 2
+attachments/1/spatial_attachment_path = NodePath("")
+attachments/1/offset = Vector3(0, 0, 0)
+attachments/2/point_index = 3
+attachments/2/spatial_attachment_path = NodePath("")
+attachments/2/offset = Vector3(0, 0, 0)
+attachments/3/point_index = 0
+attachments/3/spatial_attachment_path = NodePath("")
+attachments/3/offset = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1987187899]
+shape = SubResource("BoxShape3D_jnyxw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=379054355]
+transform = Transform3D(3.3754656, 0, 0, 1.4210855e-14, 0.047209498, 0, 0, 0, -0.109627694, -1.134155, 0.5035571, 0)
+mesh = SubResource("BoxMesh_yb0nf")

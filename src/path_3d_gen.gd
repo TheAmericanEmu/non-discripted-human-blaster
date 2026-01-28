@@ -9,8 +9,9 @@ const ENEMY = preload("uid://bqnvijg310h7o")
 @export var bank_obj:bank
 var total_num_emenies=1000
 @export var money_per_kill := 50
-
+@onready var allow_spawning := false
 @export var diff_manger_obj:diff_manger
+
 
 func _ready() -> void:
 	randomize()
@@ -68,5 +69,12 @@ func _add_enemy():
 	self.add_child(new_bad_guy)
 	new_bad_guy.death.connect(func():
 		bank_obj.money+=money_per_kill
+		if timer.is_stopped():
+			if get_tree().get_node_count_in_group("enemy")==0:
+				print("you won")
 	)
 	
+
+
+func _on_node_stop_spawning() -> void:
+	timer.stop()

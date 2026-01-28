@@ -8,6 +8,9 @@ class_name diff_manger extends Node
 
 @export var game_length:int=30
 
+
+signal stop_spawning
+
 func _get_progess_ratio()->float:
 	return 1.0-(timer.time_left/game_length)
 
@@ -20,5 +23,5 @@ func _ready() -> void:
 	timer.start(game_length)
 	timer.timeout.connect(func():
 		
-		OS.crash("YOU LOST")
+		stop_spawning.emit()
 		)

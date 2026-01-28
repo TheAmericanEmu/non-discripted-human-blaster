@@ -1,0 +1,1 @@
+class_name win_screen extends CanvasLayer
