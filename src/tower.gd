@@ -2,7 +2,7 @@ extends MeshInstance3D
 @onready var turret: MeshInstance3D = $Turret
 @export var bullet:PackedScene
 @onready var timer: Timer = $Timer
-@onready var csg_baked_mesh_instance_3d_2: MeshInstance3D = $Turret/CSGBakedMeshInstance3D2
+@onready var csg_baked_mesh_instance_3d_2: MeshInstance3D = $Turret
 @export var range:int = 20
 var can_shoot= false
 var target:Node3D=null

@@ -22,6 +22,6 @@ func get_heal_time():
 func _ready() -> void:
 	timer.start(game_length)
 	timer.timeout.connect(func():
-		
+
 		stop_spawning.emit()
 		)

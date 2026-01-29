@@ -76,23 +76,6 @@ texture = ExtResource("2_gomef")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Surivered" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=728311640]
-layout_mode = 2
-text = "Surivered +1"
-horizontal_alignment = 1
-
-[node name="Prefect_Run" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=351115688]
-visible = false
-layout_mode = 2
-text = "Prefect Run +1"
-horizontal_alignment = 1
-
-[node name="Money" type="Label" parent="CenterContainer/Panel/VBoxContainer" unique_id=304824762]
-visible = false
-layout_mode = 2
-text = "Losts of Money +1"
-horizontal_alignment = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer" unique_id=688994070]
 layout_mode = 2
 size_flags_vertical = 10

@@ -11,8 +11,11 @@ var total_num_emenies=1000
 @export var money_per_kill := 50
 @onready var allow_spawning := false
 @export var diff_manger_obj:diff_manger
+@export var win_layer:CanvasLayer
 
-
+func _process(delta: float) -> void:
+	pass
+	
 func _ready() -> void:
 	randomize()
 	
@@ -20,7 +23,8 @@ func _ready() -> void:
 		if get_tree().get_node_count_in_group("enemy")<total_num_emenies:
 			_add_enemy()
 		)
-	
+
+
 	
 	var noise = FastNoiseLite.new()
 	noise.seed=randi_range(0,10000000)
@@ -48,7 +52,6 @@ func _ready() -> void:
 	get_tree().current_scene.add_child.call_deferred(tower)
 	
 	tower.global_position=last_ponit
-	tower.position.y+=5
 
 	
 	var mid_point = new_curve.get_point_position(new_curve.point_count/2)
@@ -61,20 +64,23 @@ func _ready() -> void:
 	
 	self.curve=new_curve
 	timer.start()
-
+	Engine.time_scale=2
 func _add_enemy():
 	timer.wait_time=diff_manger_obj.get_spawn_time()
 	var new_bad_guy:enemy = ENEMY.instantiate()
 	new_bad_guy.max_health=diff_manger_obj.get_heal_time()
 	self.add_child(new_bad_guy)
-	new_bad_guy.death.connect(func():
+	new_bad_guy.tree_exited.connect(func():
 		bank_obj.money+=money_per_kill
 		if timer.is_stopped():
+			print("hello")
 			if get_tree().get_node_count_in_group("enemy")==0:
 				print("you won")
+				win_layer.show()
 	)
 	
 
 
 func _on_node_stop_spawning() -> void:
+
 	timer.stop()
